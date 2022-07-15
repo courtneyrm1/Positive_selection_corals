@@ -2,7 +2,7 @@ library(data.table)
 library(tools)
 require(picante)
 
-
+#Trees in folder "trees" with extension ".tree"
 files <- list.files(path = "trees/", pattern = "*.tree", full.names = T,recursive = F) 
 
 custom_fct <- function(t){
