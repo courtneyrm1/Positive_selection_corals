@@ -1,4 +1,4 @@
-#This is the pipeline I used to detect positive selection in immune genes across multiple transcriptomes. Throughtout the pipeline, I had to change
+#This is the pipeline I used to detect positive selection of immune genes across multiple transcriptomes. Throughtout the pipeline, I had to change
 filenames and transcript headers repeatedly. I tried to keep to the format Species_geneid, changing only when a program required different formats.
 . I will add some of the scripts for this at the end. 
 
