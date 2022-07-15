@@ -1,4 +1,4 @@
-#This is the pipeline I used to detect positive selection of immune genes across multiple transcriptomes. Throughtout the pipeline, I had to change
+#This is the pipeline I used in bash to detect positive selection of immune genes across multiple transcriptomes. Throughtout the pipeline, I had to change
 filenames and transcript headers repeatedly. I tried to keep to the format Species_geneid, changing only when a program required different formats.
 It was difficult to keep track of this, but I will add some of the scripts I used at the end of the pipeline. 
 
@@ -6,8 +6,8 @@ It was difficult to keep track of this, but I will add some of the scripts I use
 #Make blast database using immune genes 
 makeblastdb -in immune_seqs.fa -dbtype nucl -parse_seqids -out immune_genes #MAKEBLASTDB
 
-#Loop over multiple files using tblastn
-for f in *transcriptomes.fa; do tblastn -query $f -db DB_Pb3 -evalue 1.0e-5 -outfmt 6 -max_target_seqs 1 -out ${f}_pb3_blast.fa; done
+#Loop over multiple files using blastn
+for f in *transcriptomes.fa; do blastn -query $f -db immune_genes -evalue 1.0e-5 -outfmt 6 -max_target_seqs 1 -out ${f}_blast.fa; done
 
 #To make things easier I moved each transcriptome and BLAST results to a separate folder for each species and repeated the next steps separate for each species.
 
