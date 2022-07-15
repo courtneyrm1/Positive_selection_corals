@@ -1,3 +1,8 @@
+#This is the pipeline I used to detect positive selection in immune genes across multiple transcriptomes. Throughtout the pipeline, I had to change
+ffilenames and transcript headers repeatedly. I will add some of the scripts for this at the end. 
+
+
+
 #Make blast database using immune genes 
 makeblastdb -in immune_seqs.fa -dbtype nucl -parse_seqids -out immune_genes #MAKEBLASTDB
 
@@ -46,7 +51,8 @@ for f in *.fa; do cd-hit-est -i $f -o $f.fa -c 0.95; done
 
 orthofinder -f /transcriptomes -S diamond -M msa -A mafft -T fasttree -t 16
 
-#Copy gene trees and multiple sequence alignents for each orthogroup to a new directory /orthogroups and run phylopypruner to remove paralogs
+#Copy gene trees and multiple sequence alignents for each orthogroup to a new directory /orthogroups and run phylopypruner to remove paralogs.
+Phylopypruner needs @ between species and gene Id which was changed using sed. 
 
 phylopypruner --output /phylo_output_dir --dir /orthogroups --min-taxa 10 --min-support 1.0 --prune LS
 
@@ -79,6 +85,25 @@ for i in *.ctl; do ./codeml.exe $i; done.
 
 #to automate codeml to avoid pressing enter at each gene, use: 
 yes \n | codemlshellscript
+
+
+#trimeverything after second _ and including _ (change 2 to 3 for third) within file
+for f in *.fa; do  sed -i 's/_[^_]*//2g' $f; done
+
+#trim >Gene.2::Species_1@100 to >Species_1@100 on lines beginning >
+sed -i '/^>/s/Gene.*://' *
+
+#remove last n chars from filename including extension
+rename 's/.{n}$//' *
+
+#remove between > and a letter  (e.g. A)
+sed 's/>['A>]*A/A/g' 
+
+#change file type from extensionless to something e.g. .tree
+for f in *; do mv "$f" "$f.tre"; done
+
+#keep only the names of species and genes after transdecoder
+sed '/^[[:space:]]*$/d' *.fa
 
 
 
