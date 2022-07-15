@@ -47,9 +47,9 @@ TransDecoder.Predict -t transcriptome.fa
 #cd-hit to remove sequences more than 95% similar from each species on .pep files
 for f in *.fa; do cd-hit-est -i $f -o $f.fa -c 0.95; done
 
-#copy cleaned transcriptomes to a directory /transcriptomes inside orthofinder directory. Run orthofinder.
+#copy cleaned transcriptomes to a directory /transcriptomes inside orthofinder directory. Run orthofinder:
 
-orthofinder -f /transcriptomes -S diamond -M msa -A mafft -T fasttree -t 16
+orthofinder -f /transcriptomes -S diamond -M msa -A mafft -T fasttree -X -t 16
 
 #Copy gene trees and multiple sequence alignents for each orthogroup to a new directory /orthogroups and run phylopypruner to remove paralogs.
 Phylopypruner needs @ between species and gene Id which was changed using sed. 
