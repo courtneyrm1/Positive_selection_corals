@@ -1,6 +1,6 @@
 #This is the pipeline I used to detect positive selection of immune genes across multiple transcriptomes. Throughtout the pipeline, I had to change
 filenames and transcript headers repeatedly. I tried to keep to the format Species_geneid, changing only when a program required different formats.
-. I will add some of the scripts for this at the end. 
+It was difficult to keep track of this, but I will add some of the scripts I used at the end of the pipeline. 
 
 
 #Make blast database using immune genes 
@@ -89,6 +89,8 @@ for i in *.ctl; do ./codeml.exe $i; done.
 #to automate codeml to avoid pressing enter at each gene, use: 
 yes \n | codemlshellscript
 
+
+#SCRIPTS FOR MODIFYING FILENAMES AND TRANSCRIPT HEADERS
 
 #trimeverything after second _ and including _ (change 2 to 3 for third) within file
 for f in *.fa; do  sed -i 's/_[^_]*//2g' $f; done
