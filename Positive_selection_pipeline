@@ -65,7 +65,7 @@ for file in *.fa; do grep '>' $file > "$(basename "$file" .tex)_headlist.txt"; d
 #seqkit for loop (first remove > from each transcript using sed) to get cds for each gene in each orthogroup
 for file in *.fa_headlist.txt; do seqkit grep -f "$file" allcds.cds -o "$file.fa"; done
 
-#Now sort alphabetically cds files as well as protein coding orthogroup sequences from phylopypruenr output 
+#Now sort alphabetically cds files as well as protein alignment orthogroup sequences from phylopypruenr output as the files must have genes in the same order.
 for i in *.fa; do seqkit sort --quiet $i > "$i.fa.txt"; done
 
 #make sure orthogroups have the same name but different extension for protein alignments and coding sequence and copy to a new directory pal2nal. May need to 
